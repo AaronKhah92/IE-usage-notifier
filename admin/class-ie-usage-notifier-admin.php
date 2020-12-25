@@ -101,3 +101,4 @@ class Ie_Usage_Notifier_Admin {
 	}
 
 }
+

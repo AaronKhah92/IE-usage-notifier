@@ -100,4 +100,36 @@ class Ie_Usage_Notifier_Public {
 
 	}
 
+	function custom_content_after_body_open_tag() {
+
+    ?>
+
+    <p class="ie-notify">Observera, du använder webbläsaren Internet Explorer. Innehållet av denna sidan visas inte som det är tänkt på Internet Explorer, vi rekommederar att du använder en modern webbläsare som Chrome, Firefox eller Edge.</p>
+
+    <?php
+
+}
+
+	public function set_content_acf()
+	{
+		wp_enqueue_style(
+			'custom-style',
+			plugin_dir_url(__FILE__) . 'css/ie-usage-notifier-public.css'
+		);
+		$custom_css = "
+		
+			 
+		@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+			.ie10up {
+					background-color: red;
+			}
+			.ie-notify {
+				display: block;
+			}
+	}
+		";
+	
+		wp_add_inline_style('custom-style', $custom_css);
+	}
+	
 }
