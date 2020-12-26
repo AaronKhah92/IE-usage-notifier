@@ -101,10 +101,25 @@ class Ie_Usage_Notifier_Public {
 	}
 
 	function custom_content_after_body_open_tag() {
-
+	if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)
+			$browser =  'Internet explorer';
+	elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) //For Supporting IE 11
+			$browser = 'Internet explorer';
+	elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== FALSE)
+			$browser = 'Mozilla Firefox';
+	elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== FALSE)
+			$browser ='Google Chrome';
+	elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== FALSE)
+			$browser = "Opera Mini";
+	elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Opera') !== FALSE)
+			$browser ="Opera";
+	elseif(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== FALSE)
+			$browser = "Safari";
+	else
+			$browser ='Something else';
     ?>
 
-    <p class="ie-notify">Observera, du använder webbläsaren Internet Explorer. Innehållet av denna sidan visas inte som det är tänkt på Internet Explorer, vi rekommederar att du använder en modern webbläsare som Chrome, Firefox eller Edge.</p>
+    <p class="ie-notify">Observera, du använder webbläsaren <?php echo $browser ?>. Innehållet av denna sidan visas inte som det är tänkt på <?php echo $browser ?>, vi rekommederar att du använder en modern webbläsare som Chrome, Firefox eller Edge.</p>
 
     <?php
 
@@ -112,6 +127,10 @@ class Ie_Usage_Notifier_Public {
 
 	public function set_content_acf()
 	{
+		$ie_10_notify = get_field('ie_ten_plus');
+		$ie_6_notify = get_field('ie_six_to_eight');
+		$safari_6_notify = get_field('safari_six_plus');
+		
 		wp_enqueue_style(
 			'custom-style',
 			plugin_dir_url(__FILE__) . 'css/ie-usage-notifier-public.css'
@@ -122,7 +141,7 @@ class Ie_Usage_Notifier_Public {
 					background-color: red;
 			}
 			.ie-notify {
-				display: block;
+				display: {$ie_10_notify};
 			}
 	}
 	@media \0screen\,screen\9 {
@@ -130,7 +149,7 @@ class Ie_Usage_Notifier_Public {
 			background-color: red;
 		}
 		.ie-notify {
-			display: block;
+			display:{$ie_6_notify};
 		}
 }
 
@@ -140,7 +159,7 @@ class Ie_Usage_Notifier_Public {
 					background-color: red;
 			}
 			.ie-notify {
-				display: block;
+				display: {$safari_6_notify};
 			}
 	}
 }";
