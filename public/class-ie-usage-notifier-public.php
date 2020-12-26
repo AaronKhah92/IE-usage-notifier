@@ -117,8 +117,6 @@ class Ie_Usage_Notifier_Public {
 			plugin_dir_url(__FILE__) . 'css/ie-usage-notifier-public.css'
 		);
 		$custom_css = "
-		
-			 
 		@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 			.ie10up {
 					background-color: red;
@@ -127,8 +125,25 @@ class Ie_Usage_Notifier_Public {
 				display: block;
 			}
 	}
-		";
-	
+	@media \0screen\,screen\9 {
+    .ie678 {
+			background-color: red;
+		}
+		.ie-notify {
+			display: block;
+		}
+}
+
+@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0) { 
+	@media {
+			.safari6 { 
+					background-color: red;
+			}
+			.ie-notify {
+				display: block;
+			}
+	}
+}";
 		wp_add_inline_style('custom-style', $custom_css);
 	}
 	
